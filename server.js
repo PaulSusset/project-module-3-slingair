@@ -6,6 +6,8 @@ const morgan = require('morgan');
 
 const PORT = process.env.PORT || 8000;
 
+const { confirmHandle, flightSeatingHandle, orderConfirmHandle } = require('./handlers')
+
 express()
     .use(function(req, res, next) {
         res.header("Access-Control-Allow-Origin", "*");
@@ -15,9 +17,12 @@ express()
 	.use(morgan('dev'))
 	.use(express.static('public'))
     .use(bodyParser.json())
-    .use(express.urlencoded({extended: false}))
+    .use(express.urlencoded({extended: true}))
     
     // endpoints
+    .get('/flight-seating/:flight', flightSeatingHandle)
+    .post('/order-confirmation', orderConfirmHandle)
+
 
     .use((req, res) => res.send('Not Found'))
     .listen(PORT, () => console.log(`Listening on port ${PORT}`));
