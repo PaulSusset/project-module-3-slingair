@@ -6,7 +6,7 @@ const morgan = require('morgan');
 
 const PORT = process.env.PORT || 8000;
 
-const { confirmHandle, flightSeatingHandle, orderConfirmHandle } = require('./handlers')
+const { userHandle, flightSeatingHandle, orderConfirmHandle } = require('./handlers')
 
 express()
     .use(function(req, res, next) {
@@ -17,11 +17,12 @@ express()
 	.use(morgan('dev'))
 	.use(express.static('public'))
     .use(bodyParser.json())
-    .use(express.urlencoded({extended: true}))
+    .use(express.urlencoded({extended: false}))
     
     // endpoints
     .get('/flight-seating/:flight', flightSeatingHandle)
     .post('/order-confirmation', orderConfirmHandle)
+    .post('/user-confirm', userHandle)
 
 
     .use((req, res) => res.send('Not Found'))

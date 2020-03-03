@@ -1,4 +1,5 @@
 const flightInput = document.getElementById('flight');
+const existing = document.getElementById('existing');
 const seatsDiv = document.getElementById('seats-section');
 const confirmButton = document.getElementById('confirm-button');
 
@@ -49,7 +50,8 @@ const renderSeats = (seatAvailability) => {
 const toggleFormContent = () => {
     flightNumber = flightInput.value;
     console.log('toggleFormContent: ', flightNumber);
-    if (flightNumber.length === 5 && flightNumber.substring(0,2) === 'SA'){
+    if (flightNumber.length === 5 && flightNumber.substring(0,2) === 'SA' && flightNumber.substring(2) > 0){
+        document.getElementById('error').classList.add('displayNone')
     fetch(`/flight-seating/${flightNumber}`, 
     {method: "GET",
     headers: {
@@ -62,9 +64,8 @@ const toggleFormContent = () => {
     //      - only contact the server if the flight number is this format 'SA###'.
     //      - Do I need to create an error message if the number is not valid?
     
-    // TODO: Pass the response data to renderSeats to create the appropriate seat-type.
     .then(deets => renderSeats(deets));}
-    else {('Please enter a valid flight number (SA###)') }
+    else { document.getElementById('error').classList.remove('displayNone')}
 }
 
 const handleConfirmSeat = async (event) => {
@@ -78,9 +79,18 @@ const handleConfirmSeat = async (event) => {
         body: JSON.stringify(reqBody),
         headers: {
             "Accept": "application/JSON",
-            // "Content-Type": "application/json"
+            "Content-Type": "application/json"
     }
+    }).then(data => data.json())
+    .then(data =>{
+        window.location.href = `http://localhost:8000/seat-select/confirmed.html?id=${data['newID']}`
     })
+}
+const userPageHandle = (event) => {
+    const id = id.value;
+    console.log(id)
+    window.location.href = `http://localhost:8000/seat-select/confirmed.html?id=${id}`
 }
 
 flightInput.addEventListener('blur', toggleFormContent);
+existing.addEventListener('click', userPageHandle)

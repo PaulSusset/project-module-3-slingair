@@ -260,3 +260,14 @@ input {
 }
 
 .form-container { display: none; }
+.error{
+    background: #F79D00;
+    border: white 2px solid;
+    border-radius: 4px;
+    padding: 9px 12px;
+    font-size: 24px;
+    margin-left: 10px;
+    font-family: var(--heading-font);
+    color: white
+}
+.displayNone {display: none; }
