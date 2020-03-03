@@ -3,10 +3,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const request = require('request-promise')
 
 const PORT = process.env.PORT || 8000;
 
-const { userHandle, flightSeatingHandle, orderConfirmHandle } = require('./handlers')
+const { userHandle, flightSeatingHandle, orderConfirmHandle, flightsHandle, seatInfo } = require('./handlers')
 
 express()
     .use(function(req, res, next) {
@@ -23,7 +24,10 @@ express()
     .get('/flight-seating/:flight', flightSeatingHandle)
     .post('/order-confirmation', orderConfirmHandle)
     .post('/user-confirm', userHandle)
-
+    .get('/flights', flightsHandle)
+    .get('/flights/:flight', seatInfo)
 
     .use((req, res) => res.send('Not Found'))
     .listen(PORT, () => console.log(`Listening on port ${PORT}`));
+
+    

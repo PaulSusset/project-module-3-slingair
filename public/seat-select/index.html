@@ -13,15 +13,17 @@
             </div>
             <div class="flight-select">
                 <label for="flight">Flight Number :</label>
-                <input name="flight" id="flight" class="flight" type="text" placeholder="flight #" />
+                <select name="flight" id="flight" class="flight" type="text" placeholder="flight #" onchange="toggleFormContent()">
+                    <option value="Select your flight">Select your flight</option>
+                </select>
                 <div class='error displayNone' id='error'>Please enter a valid flight number (SA###)</div>
             </div>
             <div>
-                <form id='existing' action="/">
-                    Do you already have a seat? Take a look: 
+                <form id='existing' onsubmit="userPageHandle(event)">
+                    <label for="yourID">Do you already have a seat? Take a look:</label>
+                    <input name='yourId' id="yourID" type="text" placeholder="Your ID or email"></input>
+                    <button type='submit'>Slingshot</button>
                 </form>
-                <input name='id' type="text" placeholder="Your ID"></input>
-                <input type='submit'>
             </div>
             <div class="form-container">
                 <h2>Select your seat and Provide your information!</h2>
