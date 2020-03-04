@@ -45,7 +45,7 @@ const renderSeats = (seatAvailability) => {
                 const seatAvailable = `<li><label class="seat"><input type="radio" name="seat" value="${seatNumber}" /><span id="${seatNumber}" class="avail">${seatNumber}</span></label></li>`        
                 seat.innerHTML = seatAvailable;
             } else {
-                const seatOccupied = `<li><label class="seat"><span id="${seatNumber}" class="occupied">${seatNumber}</span></label></li>`;
+                const seatOccupied = `<li><label class="seat"><input type="radio" name="seat" id='occupied' value="${seatNumber}" /><span id="${seatNumber}" class="adminOcc">${seatNumber}</span></label></li>`
                 seat.innerHTML = seatOccupied
             }
             row.appendChild(seat);
@@ -62,12 +62,23 @@ const renderSeats = (seatAvailability) => {
                 }
             })
             document.getElementById(seat.value).classList.add('selected');
-            document.getElementById('seat-number').innerText = `(${selection})`;
-            confirmButton.disabled = false;
+            if (seat.id === 'occupied'){
+                fetch(`/adminSelect?seat=${selection}&flight=${flightNumber}`, {
+                method: 'GET',
+                header: {
+                    "Accept" : "application/json"
+                }
+            }).then(data => data.json())
+            .then(user => {
+                document.getElementById('flight').innerText = user['flight']
+                document.getElementById('seat').innerText = user['seat']
+                document.getElementById('name').innerText = `${user['givenName']} ${user['surname']}`
+                document.getElementById('email').innerText = user['email']
+                document.getElementById('orderID').innerText = user['id']
+            })}
         }
     });
 }
-
 
 const toggleFormContent = () => {
     flightNumber = flightInput.value;
@@ -82,30 +93,4 @@ const toggleFormContent = () => {
     }}).then(data => data.json())
     .then(deets => renderSeats(deets));
     // else { document.getElementById('error').classList.remove('displayNone')}
-}
-
-const handleConfirmSeat = (event) => {
-    event.preventDefault();
-    const reqBody = {flight: flightNumber,
-            seat: selection,
-        givenName : givenName.value,
-        surname: surname.value,
-        email : email.value}
-    fetch('/order-confirmation', {
-        method: "POST",
-        body: JSON.stringify(reqBody),
-        headers: {
-            "Accept": "application/JSON",
-            "Content-Type": "application/json"
-    }
-    }).then(data => {
-        return data.json()})
-    .then(data => {
-        window.location.href = `http://localhost:8000/seat-select/confirmed.html?id=${data['reservation']['id']}`
-    })
-}
-const userPageHandle = (event) => {
-    event.preventDefault()
-    const idString = event.target.elements.yourId.value;
-    window.location.href = `http://localhost:8000/seat-select/confirmed.html?id=${idString}`
 }

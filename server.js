@@ -7,7 +7,7 @@ const request = require('request-promise')
 
 const PORT = process.env.PORT || 8000;
 
-const { userHandle, flightSeatingHandle, orderConfirmHandle, flightsHandle, seatInfo } = require('./handlers')
+const { userHandle, flightSeatingHandle, orderConfirmHandle, flightsHandle, seatInfo, adminSelectHandle } = require('./handlers')
 
 express()
     .use(function(req, res, next) {
@@ -26,6 +26,7 @@ express()
     .post('/user-confirm', userHandle)
     .get('/flights', flightsHandle)
     .get('/flights/:flight', seatInfo)
+    .get('/adminSelect', adminSelectHandle)
 
     .use((req, res) => res.send('Not Found'))
     .listen(PORT, () => console.log(`Listening on port ${PORT}`));

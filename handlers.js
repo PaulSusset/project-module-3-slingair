@@ -47,6 +47,38 @@ const seatInfo = (req, res) => {
     .then(data => {
         res.send(data)})
 }
+const adminSelectHandle = (req, res) => {
+    const seat = req.query.seat
+    const flight = req.query.flight
+    let start = 0
+    console.log('seat', seat)
+    console.log('flight', flight)
+    const ping = () => {
+        request(`https://journeyedu.herokuapp.com/slingair/users?limit=25&start=${start}`)
+        .then(data => JSON.parse(data))
+            .then(data => {
+                if(data.find(user => {
+                    if(user !== null){
+                    return user['flight'] === flight && user['seat'] === seat
+                }})){
+                    let seatData = data.find(user => {
+                        return user['flight'] === flight && user['seat'] === seat
+                    })
+                    // console.log(seatData)
+                    res.send(seatData)
 
+                } else {
+                    if (start < 200){
+                        console.log('pinging again')
+                    start += 25
+                    console.log('start', start)
+                    ping()
+                    return
+                } else { console.log('finished')}
+                }
+            })
+    }
+    ping()
+}
 
-module.exports = { userHandle, flightSeatingHandle, orderConfirmHandle, flightsHandle, seatInfo }
+module.exports = { userHandle, flightSeatingHandle, orderConfirmHandle, flightsHandle, seatInfo, adminSelectHandle }

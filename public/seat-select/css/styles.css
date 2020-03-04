@@ -190,6 +190,12 @@ input {
     cursor: not-allowed;
     opacity: .5;
 }
+.seat span.adminOcc{
+    background: var(--selective-yellow);
+    color: #fff;
+    /* cursor: not-allowed; */
+    opacity: .5;
+}
 
 .seat span:hover,
 .seat span.selected {
@@ -271,3 +277,9 @@ input {
     color: white
 }
 .displayNone {display: none; }
+.adminBox{
+    display: flex;
+    max-width: 100vw;
+    align-items: center;
+    justify-content: space-around;
+}

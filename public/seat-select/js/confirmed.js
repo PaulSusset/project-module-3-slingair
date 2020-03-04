@@ -12,6 +12,7 @@ fetch('/user-confirm', {
         document.getElementById('seat').innerText = user['data']['seat']
         document.getElementById('name').innerText = `${user['data']['givenName']} ${user['data']['surname']}`
         document.getElementById('email').innerText = user['data']['email']
+        document.getElementById('orderID').innerText = user['data']['id']
     })
 
 
