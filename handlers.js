@@ -74,7 +74,19 @@ const adminSelectHandle = (req, res) => {
                     console.log('start', start)
                     ping()
                     return
-                } else { console.log('finished')}
+                } else { 
+                    console.log('finished')
+                    res.send(
+                        {
+                            email: 'NO DATA',
+                            flight: flight,
+                            givenName: 'NO DATA',
+                            id: 'NO DATA',
+                            seat: seat,
+                            surname: 'NO DATA'
+                          }
+                    )
+                }
                 }
             })
     }

@@ -28,7 +28,7 @@ main {
 .content {
     flex: 1 0 auto;
     height: 100%;
-    width: 100%;
+    width: auto;
     overflow: hidden;
     display: flex;
     justify-content: space-around;
@@ -265,7 +265,10 @@ input {
     left: calc(52% - 15px);
 }
 
-.form-container { display: none; }
+.form-container { 
+    /* display: none;  */
+    width: 50%;
+}
 .error{
     background: #F79D00;
     border: white 2px solid;

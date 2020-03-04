@@ -70,7 +70,7 @@ const renderSeats = (seatAvailability) => {
                 }
             }).then(data => data.json())
             .then(user => {
-                document.getElementById('flight').innerText = user['flight']
+                document.getElementById('flightNum').innerText = user['flight']
                 document.getElementById('seat').innerText = user['seat']
                 document.getElementById('name').innerText = `${user['givenName']} ${user['surname']}`
                 document.getElementById('email').innerText = user['email']

@@ -27,18 +27,20 @@
             </div> -->
             <div class='adminBox'>
             <div class="form-container">
-                <h2>Select your seat and Provide your information!</h2>
-                <form id="seats" class="content" name="salesForm" onsubmit="handleConfirmSeat(event)">
-                    <div class='form-content plane'>
-                        <div id="seats-section"></div>
-                    </div>
-                </form>
+                <div>
+                    <h2>Select seat</h2>
+                    <form id="seats" class="content" name="salesForm" onsubmit="handleConfirmSeat(event)">
+                        <div class='form-content plane'>
+                            <div id="seats-section"></div>
+                        </div>
+                    </form>
+                </div>
             </div>
             <div class="content confirmation">
                 <div class="user">
-                    <p class="message">Your flight is confirmed!</p>
+                    <p class="message">User Info</p>
                     <ul class="user-info">
-                        <li>Flight #:<span id="flight"></span> seat #: <span id="seat"></span></li>
+                        <li>Flight #:<span id="flightNum"></span> seat #: <span id="seat"></span></li>
                         <li>Name:<span id="name"></span></li>
                         <li>Email:<span id="email"></span></li>
                         <li>ID<span id='orderID'></span></li>
