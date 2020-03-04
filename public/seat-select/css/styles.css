@@ -266,8 +266,9 @@ input {
 }
 
 .form-container { 
-    /* display: none;  */
+    display: none; 
     width: 50%;
+    flex-grow: 2;
 }
 .error{
     background: #F79D00;
